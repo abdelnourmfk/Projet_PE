@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61","wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "projet_pe"
+version = "0.1.0"
+description = "SYN flood detection demo using IsolationForest"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "scapy==2.4.5",
+  "pandas>=1.3",
+  "numpy>=1.21",
+  "scikit-learn>=1.0",
+  "joblib",
+  "scipy",
+  "matplotlib",
+  "pytest"
+]
+
+[tool.setuptools]
+# The package lives directly under the project root as `src/` (i.e. package name is `src`).
+# Configure setuptools to look for packages in the project root so `src` is discovered.
+package-dir = { "" = "." }
+packages = ["src"]

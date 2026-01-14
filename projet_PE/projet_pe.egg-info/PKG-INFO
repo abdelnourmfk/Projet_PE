@@ -1,0 +1,71 @@
+Metadata-Version: 2.4
+Name: projet_pe
+Version: 0.1.0
+Summary: SYN flood detection demo using IsolationForest
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: scapy==2.4.5
+Requires-Dist: pandas>=1.3
+Requires-Dist: numpy>=1.21
+Requires-Dist: scikit-learn>=1.0
+Requires-Dist: joblib
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: pytest
+Dynamic: license-file
+
+[![CI](https://github.com/<OWNER>/<REPO>/actions/workflows/ci.yml/badge.svg)](https://github.com/<OWNER>/<REPO>/actions)
+
+Projet 19 (C) — Détection DDoS (SYN flood) via IA légère
+
+> Replace `<OWNER>/<REPO>` in the badge URL with your GitHub repo path after the repository is created on GitHub.
+
+But: demo minimal repository. Usage:
+
+1) Create environment and install requirements:
+   python -m venv .venv
+   .\.venv\Scripts\activate
+   pip install -r requirements.txt
+
+2) Run demo (generates synthetic traffic, trains IsolationForest, runs detection):
+   python run_demo.py
+
+3) Outputs:
+   - `models/model.pkl` : trained model
+   - `outputs/alerts.json` : JSON alerts (one per line)
+
+Files:
+ - `src/traffic_gen.py` : generate synthetic normal + SYN flood traffic (CSV)
+ - `src/features.py` : extract features (packets/sec, bytes/sec, entropy)
+ - `src/train_model.py` : train IsolationForest and save `.pkl`
+ - `src/detect.py` : load model and create `alerts.json`
+ - `run_demo.py` : quick reproducible demo
+
+Goal: reach detection TPR >= 85% on SYN flood synthetic tests.
+
+Deliverables:
+- `models/final_model.pkl` — trained final model (IsolationForest)
+- `outputs/sample_alerts.json` — example JSON alerts (one per line)
+- `data/` — example datasets (synthetic)
+- `notebooks/demo.ipynb` — Jupyter notebook demonstrating the pipeline
+
+How to build final model and sample alerts:
+1) Create venv and install deps: see above
+2) Build final model: `python -m src.build_final_model` (writes `models/final_model.pkl`)
+3) Create sample alerts: `python -m src.generate_sample_alerts` (writes `outputs/sample_alerts.json`)
+
+Running tests:
+- `python -m pytest projet_PE/tests -q`
+
+Testing & CI:
+- Full testing and CI instructions: see `TESTING.md`
+- GitHub Actions workflow: `.github/workflows/ci.yml`
+
+Packaging deliverables
+- To create a distributable archive with the model and example alerts, run:
+  `python scripts/package_deliverables.py`
+  This creates `deliverables.zip` in the repository root.
+
+Contact / Notes
+- Created by the Projet 19 (C) pipeline. For questions or reproducibility assistance, open an issue or contact the maintainer.
